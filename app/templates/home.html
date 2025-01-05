@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col" style="display: block;">
+            <div class="card" style="height: 20rem">
+                <div class="card-body">
+                    <h5 class="card-title border-bottom">Prześlij</h5>
+                    <p class="card-text">Wybierz plik do analizy</p>
+                </div>
+                <div class="mb-2 pt-2 d-flex flex-column text-center align-items-center">
+                    <label for="file" class="form-label">Wybierz plik do analizy*
+                        <span class="text-muted">[akceptowane formaty: MP3]</span>
+                    </label>
+                    <div id="drop-area" class="col-md-8 border border-primary rounded p-4 text-center">
+                        <p class="text-muted" id="file-count">
+                            Przeciągnij i upuść pliki tutaj lub kliknij, aby wybrać
+                        </p>
+                        <input type="file" name="file" id="file" accept=".txt" multiple style="display: none" />
+                    </div>
+                    <ul id="file-list" class="list-group mt-3"></ul>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="btn-wrapper text-center d-flex justify-content-center">
+                        <a class="btn btn-outline-dark btn-sm d-flex align-items-center m-1"
+                            href="{{ url_for('app.test')}}">Prześlij do analizy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spinner-container mt-5 mb-5 pb-5" id="loading_spinner"
+            style="display: none; justify-content: center; align-items: center">
+            <div class="d-flex flex-column pt-xxl-5 justify-content-center align-items-center">
+                <h5 class="text-dark row pb-4">
+                    Prosimy o cierpliwość. Analizujemy plik, co może potrwać do kilku minut...
+                </h5>
+                <div class="spinner-grow spinner-grow-sm text-secondary" role="status"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file');
+        const fileList = document.getElementById('file-list');
+
+        dropArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', handleFiles);
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('border-success');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('border-success');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('border-success');
+            const files = e.dataTransfer.files;
+            handleFiles({ target: { files } });
+        });
+
+        function handleFiles(event) {
+            const files = event.target.files;
+            fileList.innerHTML = '';
+            Array.from(files).forEach(file => {
+                const listItem = document.createElement('li');
+                listItem.textContent = file.name;
+                listItem.classList.add('list-group-item');
+                listItem.setAttribute('name', 'file');
+                fileList.appendChild(listItem);
+            });
+        }
+    });
+
+</script>
+
+{% endblock content %}

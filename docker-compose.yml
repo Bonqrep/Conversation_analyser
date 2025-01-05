@@ -1,0 +1,11 @@
+services:
+  conversation-analyser:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: conversation-analyser
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env

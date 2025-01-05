@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <div class="card" style="height: auto">
+                <div class="card-body">
+                    <h5 class="card-title border-bottom">Kompleksowa analiza rozmowy</h5>
+                    <p class="card-text">Poruszaj się między zakładkami, aby przeglądać różne podgrupy analizy</p>
+                </div>
+                <div class="card col-md-10 mx-auto">
+                    <div class="card-header">
+                        <nav id="nav_analysis">
+                            <button class="btn btn-link" data-section="summary"
+                                style="text-decoration: none;">Streszczenie</button>
+                            <button class="btn btn-link" data-section="risk-list">Lista ryzyk</button>
+                            <button class="btn btn-link" data-section="remarks">Uwagi</button>
+                            <button class="btn btn-link" data-section="conclusions">Wnioski</button>
+                        </nav>
+                    </div>
+                    <div class="card-body">
+                        <div class="content-section" id="summary">
+                            <p class="card-text">Tutaj będzie streszczenie analizy.</p>
+                        </div>
+                        <div class="content-section d-none" id="risk-list">
+                            <p class="card-text">Tutaj znajdziesz listę ryzyk.</p>
+                        </div>
+                        <div class="content-section d-none" id="remarks">
+                            <p class="card-text">Tutaj będą zapisane uwagi.</p>
+                        </div>
+                        <div class="content-section d-none" id="conclusions">
+                            <p class="card-text">Tutaj znajdziesz wnioski.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center mt-3">
+                    <div class="btn-wrapper text-center d-flex justify-content-center">
+                        <a class="btn btn-outline-dark btn-sm d-flex align-items-center m-1"
+                            href="{{ url_for('app.test')}}">Pobierz analizę</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.card-header button');
+        const sections = document.querySelectorAll('.content-section');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetSection = button.getAttribute('data-section');
+
+                sections.forEach(section => {
+                    section.classList.add('d-none');
+                });
+
+                const activeSection = document.getElementById(targetSection);
+                if (activeSection) {
+                    activeSection.classList.remove('d-none');
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+#drop-area {
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+#drop-area.border-success {
+    border-color: green;
+    background-color: #e9ffe9;
+}
+
+button.btn-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer; 
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+}
