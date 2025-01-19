@@ -2,33 +2,45 @@
 
 {% block content %}
 
+{% if message %}
+<div class="row justify-content-center">
+    <div class="alert alert-info alert-dismissible fade show" style="width: auto;" role="alert">
+        <span>{{ message }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endif %}
+
 <div class="container">
     <div class="row mt-5">
         <div class="col" style="display: block;">
-            <div class="card" style="height: 20rem">
-                <div class="card-body">
-                    <h5 class="card-title border-bottom">Prześlij</h5>
-                    <p class="card-text">Wybierz plik do analizy</p>
-                </div>
-                <div class="mb-2 pt-2 d-flex flex-column text-center align-items-center">
-                    <label for="file" class="form-label">Wybierz plik do analizy*
-                        <span class="text-muted">[akceptowane formaty: MP3]</span>
-                    </label>
-                    <div id="drop-area" class="col-md-8 border border-primary rounded p-4 text-center">
-                        <p class="text-muted" id="file-count">
-                            Przeciągnij i upuść pliki tutaj lub kliknij, aby wybrać
-                        </p>
-                        <input type="file" name="file" id="file" accept=".txt" multiple style="display: none" />
+            <form method="POST" enctype="multipart/form-data" id="upload_form" action="{{ url_for('app.home_post') }}">
+                <div class="card" style="height: 20rem">
+                    <div class="card-body">
+                        <h5 class="card-title border-bottom">Prześlij</h5>
+                        <p class="card-text">Wybierz plik do analizy</p>
                     </div>
-                    <ul id="file-list" class="list-group mt-3"></ul>
-                </div>
-                <div class="card-footer text-center">
-                    <div class="btn-wrapper text-center d-flex justify-content-center">
-                        <a class="btn btn-outline-dark btn-sm d-flex align-items-center m-1"
-                            href="{{ url_for('app.test')}}">Prześlij do analizy</a>
+                    <div class="mb-2 pt-2 d-flex flex-column text-center align-items-center">
+                        <label for="file" class="form-label">Wybierz plik do analizy*
+                            <span class="text-muted">[akceptowane formaty: MP3]</span>
+                        </label>
+                        <div id="drop-area" class="col-md-8 border border-primary rounded p-4 text-center">
+                            <p class="text-muted" id="file-count">
+                                Przeciągnij i upuść pliki tutaj lub kliknij, aby wybrać
+                            </p>
+                            <input type="file" name="file" id="file" accept=".MP3" style="display: none" />
+                        </div>
+                        <ul id="file-list" class="list-group mt-3"></ul>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="btn-wrapper text-center d-flex justify-content-center">
+                            <button type="submit" class="btn btn-outline-dark btn-sm d-flex align-items-center m-1">
+                                Prześlij do analizy
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="spinner-container mt-5 mb-5 pb-5" id="loading_spinner"
             style="display: none; justify-content: center; align-items: center">

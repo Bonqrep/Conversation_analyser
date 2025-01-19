@@ -22,23 +22,23 @@
                     </div>
                     <div class="card-body">
                         <div class="content-section" id="summary">
-                            <p class="card-text">Tutaj będzie streszczenie analizy.</p>
+                            <p class="card-text">{{analyse.Streszczenie}}</p>
                         </div>
                         <div class="content-section d-none" id="risk-list">
-                            <p class="card-text">Tutaj znajdziesz listę ryzyk.</p>
+                            <p class="card-text">{{analyse.Ryzyka}}</p>
                         </div>
                         <div class="content-section d-none" id="remarks">
-                            <p class="card-text">Tutaj będą zapisane uwagi.</p>
+                            <p class="card-text">{{analyse.Uwagi}}</p>
                         </div>
                         <div class="content-section d-none" id="conclusions">
-                            <p class="card-text">Tutaj znajdziesz wnioski.</p>
+                            <p class="card-text">{{analyse.Podsumowanie}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-center mt-3">
                     <div class="btn-wrapper text-center d-flex justify-content-center">
                         <a class="btn btn-outline-dark btn-sm d-flex align-items-center m-1"
-                            href="{{ url_for('app.test')}}">Pobierz analizę</a>
+                            href="#">Pobierz analizę</a>
                     </div>
                 </div>
             </div>
